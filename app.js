@@ -27,19 +27,23 @@ mongoose
     logger.error('error connection to MongoDB:', error.message)
   })
 
+
+
 // Middleware setup
 app.use(express.static('dist')) // Serve static files from dist directory
 app.use(express.json()) // Parse JSON request bodies
 app.use(middleware.requestLogger) // Log all incoming requests
+//app.use(middleware.tokenExtractor)
 
 // API routes
-app.use('/api/notes', notesRouter)
-app.use('/api/blogs', blogsRouter)
-app.use('/api/users', userRouter)
+app.use('/api/notes', middleware.tokenExtractor, notesRouter)
+app.use('/api/blogs', middleware.tokenExtractor, blogsRouter)
+app.use('/api/users', middleware.tokenExtractor, userRouter)
 app.use('/api/login', loginRouter)
 
 // Error handling middleware (must be last)
 app.use(middleware.unknownEndpoint) // Handle 404 errors
 app.use(middleware.errorHandler) // Handle all other errors
+
 
 module.exports = app

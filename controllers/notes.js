@@ -23,6 +23,7 @@ const getTokenFrom = request => {
  * Retrieves all notes from the database
  */
 notesRouter.get("/", async (request, response, next) => {
+
   /*Note.find({}).then(notes => {
     response.json(notes)
   })*/
@@ -36,6 +37,7 @@ notesRouter.get("/", async (request, response, next) => {
  * Retrieves a single note by its ID
  */
 notesRouter.get("/:id", async (request, response, next) => {
+
   /*Note.findById(request.params.id)
     .then((note) => {
       if (note) {
